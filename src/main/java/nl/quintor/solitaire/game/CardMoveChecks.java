@@ -95,7 +95,15 @@ public class CardMoveChecks {
      */
     static boolean opposingColor(Card card1, Card card2){
         // TODO: Write implementation
-        return true;
+        String c1Suit = card1.getSuit().toString();
+        String c2Suit = card2.getSuit().toString();
+        if(c1Suit.equals(c2Suit))
+            return false;
+
+        if((c1Suit.equals("CLUBS") || c1Suit.equals("SPADES")) && (c2Suit.equals("CLUBS") || c2Suit.equals("SPADES")))
+            return false;
+
+        return (!c1Suit.equals("DIAMONDS") && !c1Suit.equals("HEARTS")) || (!c2Suit.equals("DIAMONDS") && !c2Suit.equals("HEARTS"));
     }
 
     /**
