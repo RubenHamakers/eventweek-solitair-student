@@ -29,7 +29,9 @@ public class GameStateController {
         Collections.shuffle(baseDeck);
 
         String[] headers = new String[]{"SA", "SB", "SC", "SD"};
-        Arrays.stream(headers).forEach(header -> initialGameState.getStackPiles().put(header, new Deck(DeckType.STACK)));
+        Arrays.stream(headers)
+            .forEach(header -> initialGameState.getStackPiles()
+                .put(header, new Deck(DeckType.STACK)));
 
         String[] columnHeaders = new String[]{"A", "B", "C", "D", "E", "F", "G"};
         for(int i = 0; i < columnHeaders.length; i++){
