@@ -27,7 +27,6 @@ public class GameStateController {
         GameState initialGameState = new GameState();
         Deck baseDeck = Deck.createDefaultDeck();
         Collections.shuffle(baseDeck);
-
         String[] headers = new String[]{"SA", "SB", "SC", "SD"};
         Arrays.stream(headers)
             .forEach(header -> initialGameState.getStackPiles()
@@ -46,7 +45,6 @@ public class GameStateController {
         initialGameState.setStartTime(LocalDateTime.now());
         initialGameState.getStock().add(baseDeck.remove(0));
         initialGameState.getWaste().addAll(baseDeck);
-
         return initialGameState;
     }
 
