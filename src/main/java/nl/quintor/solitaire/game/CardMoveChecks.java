@@ -76,6 +76,25 @@ public class CardMoveChecks {
      */
     public static void cardLevelChecks(Deck targetDeck, Card cardToAdd) throws MoveException {
         // TODO: Write implementation
+        int deckSize = targetDeck.size();
+        Card targetCard;
+
+        if (deckSize > 0) {
+            targetCard = targetDeck.get(deckSize - 1);
+        }
+        else {
+            targetCard = null;
+        }
+
+        if (targetDeck.getDeckType() != DeckType.STACK && targetDeck.getDeckType() != DeckType.COLUMN) {
+            throw new MoveException("Target deck is neither Stack nor Column.");
+        }
+        if(targetDeck.getDeckType() == DeckType.STACK) {
+            checkStackMove(targetCard, cardToAdd);
+        }
+        if(targetDeck.getDeckType() == DeckType.COLUMN) {
+            checkColumnMove(targetCard, cardToAdd);
+        }
     }
 
     // Helper methods
@@ -89,6 +108,21 @@ public class CardMoveChecks {
      */
     static void checkStackMove(Card targetCard, Card cardToAdd) throws MoveException {
         // TODO: Write implementation
+        if (targetCard == null) {
+            if(cardToAdd.getRank() != Rank.ACE) {
+                throw new MoveException("An Ace has to be the first card of a Stack pile");
+            }
+        }
+        else {
+            if (targetCard.getRank().ordinal() != cardToAdd.getRank().ordinal() - 1) {
+                if(targetCard.getRank() != Rank.ACE || cardToAdd.getRank() != Rank.TWO) {
+                    throw new MoveException("Stack piles can only hold cards increasing in rank from Ace to King");
+                }
+            }
+            if (targetCard.getSuit() != cardToAdd.getSuit()) {
+                throw new MoveException("Stack piles can only contain same-suit cards");
+            }
+        }
     }
 
     /**
@@ -100,6 +134,19 @@ public class CardMoveChecks {
      */
     static void checkColumnMove(Card targetCard, Card cardToAdd) throws MoveException {
         /// TODO: Write implementation
+        if (targetCard == null) {
+            if (cardToAdd.getRank() != Rank.KING) {
+                throw new MoveException("A King has to be the first card in a Column");
+            }
+        }
+        else {
+            if (!opposingColor(targetCard, cardToAdd)) {
+                throw new MoveException("Column cards have to alternate colors");
+            }
+            if (targetCard.getRank().ordinal() != cardToAdd.getRank().ordinal() + 1) {
+                throw new MoveException("Columns hold alternating-color cards of decreasing rank from King to Ace");
+            }
+        }
     }
 
     /**
