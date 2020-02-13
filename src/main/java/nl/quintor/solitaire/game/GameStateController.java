@@ -76,6 +76,7 @@ public class GameStateController {
      * @param gameState GameState object of which it is determined if the game has been won
      */
     public static void detectGameWin(GameState gameState){
-        // TODO: Write implementation
+        boolean checkInvisCards = gameState.getColumns().values().stream().anyMatch(d -> (d.getInvisibleCards() > 0));
+        if(!checkInvisCards && gameState.getStock().isEmpty()){gameState.setGameWon(true);}
     }
 }
