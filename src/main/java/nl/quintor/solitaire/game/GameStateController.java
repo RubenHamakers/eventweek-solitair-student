@@ -24,8 +24,28 @@ public class GameStateController {
      * @return a new GameState object, ready to go
      */
     public static GameState init(){
-        // TODO: Write implementation
-        return new GameState();
+        GameState initialGameState = new GameState();
+        Deck baseDeck = Deck.createDefaultDeck();
+        Collections.shuffle(baseDeck);
+
+        String[] headers = new String[]{"SA", "SB", "SC", "SD"};
+        Arrays.stream(headers).forEach(header -> initialGameState.getStackPiles().put(header, new Deck(DeckType.STACK)));
+
+        String[] columnHeaders = new String[]{"A", "B", "C", "D", "E", "F", "G"};
+        for(int i = 0; i < columnHeaders.length; i++){
+            Deck deckColumn = new Deck(DeckType.COLUMN);
+            deckColumn.setInvisibleCards(i);
+
+            for(int j = 0; j < i +1; j++){
+                deckColumn.add(baseDeck.remove(0));
+            }
+            initialGameState.getColumns().put(columnHeaders[i], deckColumn);
+        }
+        initialGameState.setStartTime(LocalDateTime.now());
+        initialGameState.getStock().add(baseDeck.remove(0));
+        initialGameState.getWaste().addAll(baseDeck);
+
+        return initialGameState;
     }
 
     /**
