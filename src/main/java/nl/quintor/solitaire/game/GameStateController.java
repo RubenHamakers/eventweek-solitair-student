@@ -1,11 +1,13 @@
 package nl.quintor.solitaire.game;
 
+import nl.quintor.solitaire.game.moves.ex.MoveException;
 import nl.quintor.solitaire.models.deck.Deck;
 import nl.quintor.solitaire.models.deck.DeckType;
 import nl.quintor.solitaire.models.state.GameState;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.Collections;
 
@@ -66,6 +68,15 @@ public class GameStateController {
      */
     public static void applyBonusScore(GameState gameState){
         // TODO: Write implementation
+        int bonusPoints = 0;
+        // Calculate the difference in time between the start and end using the Duration instance. Convert to int using the Math class.
+        int gameTimeSeconds = Math.toIntExact(Duration.between(gameState.getStartTime(), gameState.getEndTime()).toSeconds());
+
+        if(gameTimeSeconds > 30) {
+            bonusPoints = 700000 / gameTimeSeconds;
+        }
+
+        gameState.setTimeScore(bonusPoints);
     }
 
     /**
