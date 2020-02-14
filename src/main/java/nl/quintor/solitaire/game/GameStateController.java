@@ -80,7 +80,8 @@ public class GameStateController {
             bonusPoints = 700000 / gameTimeSeconds;
         }
 
-        gameState.setTimeScore(bonusPoints);
+        int points = (int) gameState.getTimeScore() + bonusPoints;
+        gameState.setTimeScore(points);
     }
 
     /**
