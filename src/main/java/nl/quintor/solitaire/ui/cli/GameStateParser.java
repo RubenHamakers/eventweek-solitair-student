@@ -6,6 +6,7 @@ import nl.quintor.solitaire.models.deck.Deck;
 import nl.quintor.solitaire.models.deck.DeckType;
 import nl.quintor.solitaire.models.state.GameState;
 
+import java.sql.SQLOutput;
 import java.util.Collection;
 import java.util.Comparator;
 
@@ -62,6 +63,24 @@ class GameStateParser {
      */
     protected static boolean printRow(StringBuilder builder, Collection<Deck> columns, int row){
         // TODO: Write implementation
+        for(Deck deck: columns){
+            int i = 0;
+            for(Card x:deck){
+                int invis = deck.getInvisibleCards();
+                if(i == row){
+                    int y = 0;
+                    while (y < invis) {
+                        padNAdd(builder, "? ?", 8);
+                        y++;
+                    }
+                    if(i > y || invis == 0) {
+                        padNAdd(builder, x.toShortString(), 8);
+                    }
+                }
+                i++;
+            }
+        }
+
         return true;
     }
 
