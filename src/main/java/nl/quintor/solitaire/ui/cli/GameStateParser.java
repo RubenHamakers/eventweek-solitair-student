@@ -1,9 +1,13 @@
 package nl.quintor.solitaire.ui.cli;
 
+import nl.quintor.solitaire.game.moves.ex.MoveException;
+import nl.quintor.solitaire.models.card.Card;
 import nl.quintor.solitaire.models.deck.Deck;
+import nl.quintor.solitaire.models.deck.DeckType;
 import nl.quintor.solitaire.models.state.GameState;
 
 import java.util.Collection;
+import java.util.Comparator;
 
 /**
  * {@link GameState} parser for terminal printing. The class is not instantiable, all constructors are private.
@@ -41,6 +45,7 @@ class GameStateParser {
      */
     static String parseGameState(GameState gameState){
         // TODO: Write implementation
+        
         return "";
     }
 
@@ -67,10 +72,14 @@ class GameStateParser {
      * @param index index of the card to get
      * @return the requested card or null
      */
-    protected static String getCardStringOrNull(Deck deck, int index){
+    protected static String getCardStringOrNull(Deck deck, int index) {
         // TODO: Write implementation
-        return null;
+        if (index < 1 || index > 52) {
+            return null;
+        }
+        return deck.toString();
     }
+
 
     /**
      * Add a space to the left of the string if it is of length 1, then add spaces to the right until it is of size
