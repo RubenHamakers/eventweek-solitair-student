@@ -58,6 +58,10 @@ public class GameStateController {
      */
     public static void applyTimePenalty(GameState gameState){
         // TODO: Write implementation
+
+        int gameTimeSeconds = Math.toIntExact(Duration.between(gameState.getStartTime(), gameState.getEndTime()).toSeconds());
+        int points = (int) gameState.getTimeScore() - (gameTimeSeconds / 10 * 2);
+        gameState.setTimeScore(points);
     }
 
     /**
